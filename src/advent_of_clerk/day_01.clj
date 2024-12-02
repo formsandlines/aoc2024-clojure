@@ -49,12 +49,20 @@
 ;; ---
 ;; ## Part 2
 
+;; Frequencies in the right list:
+(def freqs (frequencies (second parsed-ex1)))
+
+;; Similarity scores for each id in the left list:
+(map #(* % (or (freqs %) 0)) (first parsed-ex1))
+
 (defn solve-2
   [input]
-  (->> input))
+  (let [[xs ys] (parse-input input)
+        y-freqs (frequencies ys)]
+    (->> xs
+         (map #(* % (or (y-freqs %) 0)))
+         (reduce +))))
 
+(= (solve-2 ex1) 31)
+(= (solve-2 input) 23387399)
 
-(comment
-
-  ;;
-  )

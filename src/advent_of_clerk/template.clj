@@ -10,6 +10,10 @@
 (def ex1
   nil)
 
+(defn parse-input
+  [input]
+  (str/split-lines input))
+
 ;; ---
 ;; ## Part 1
 
@@ -18,6 +22,9 @@
 (defn solve-1
   [input]
   nil)
+
+(solve-1 ex1)
+(solve-1 input)
 
 ;; ### Studies
 ; <explore data>
@@ -33,6 +40,9 @@
 (defn solve-2
   [input]
   nil)
+
+(solve-2 ex1)
+(solve-2 input)
 
 ;; ### Studies
 ; <explore data>

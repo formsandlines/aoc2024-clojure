@@ -9,4 +9,4 @@ notebooks/scratch*
 /public/build
 .nrepl-port
 /.backups/
-/input/*
+/input/

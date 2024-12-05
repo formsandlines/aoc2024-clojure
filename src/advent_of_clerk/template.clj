@@ -7,17 +7,15 @@
 
 (def input (utils/load-input "day_XX.txt"))
 
-(def ex1
-  nil)
-
-(defn parse-input
-  [input]
-  (str/split-lines input))
-
 ;; ---
 ;; ## Part 1
 
-; <definitions>
+(def ex1
+  nil)
+
+(defn parse-input-1
+  [input]
+  (str/split-lines input))
 
 (defn solve-1
   [input]
@@ -26,16 +24,19 @@
 (solve-1 ex1)
 (solve-1 input)
 
-;; ### Studies
-; <explore data>
+;; ### Experiments
 
 ;; ### Observations
-; <write notes>
 
 ;; ---
 ;; ## Part 2
 
-; <definitions>
+(def ex2
+  nil)
+
+(defn parse-input-2
+  [input]
+  (str/split-lines input))
 
 (defn solve-2
   [input]
@@ -44,14 +45,11 @@
 (solve-2 ex1)
 (solve-2 input)
 
-;; ### Studies
-; <explore data>
+;; ### Experiments
 
 ;; ### Observations
-; <write notes>
 
 
 (comment
 
   )
-

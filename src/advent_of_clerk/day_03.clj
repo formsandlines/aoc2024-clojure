@@ -1,9 +1,7 @@
 ;; # 🎄 Advent of Clerk: Day 3
 (ns advent-of-clerk.template
   (:require [nextjournal.clerk :as clerk]
-            [advent-of-clerk.utils :as utils]
-            [clojure.set :as set]
-            [clojure.string :as str]))
+            [advent-of-clerk.utils :as utils]))
 
 (def input (utils/load-input "day_03.txt"))
 
@@ -36,6 +34,24 @@
 (reduce (fn [sum [a b]] (+ sum (* a b)))
         0
         mul-args)
+
+;; ### Observations
+
+;; My first parsing solution gave me a list of the whole match:
+(re-seq #"mul\(\d{1,3}\,\d{1,3}\)" ex1)
+
+;; But I could have used capture groups to get the individual numbers:
+(re-seq #"mul\((\d{1,3})\,(\d{1,3})\)" ex1)
+
+;; Which would have saved me a second `re-seq` call.
+
+;; Could have used this instead of `read-string`:
+(parse-long "42")
+
+;; All combined in an alternative approach with transduce:
+(transduce (map (fn [[_ x y]] (* (parse-long x) (parse-long y))))
+           +
+           (re-seq #"mul\((\d+),(\d+)\)" ex1))
 
 ;; ---
 ;; ## Part 2
@@ -85,4 +101,8 @@
               [sum enabled?])))
         [0 true]
         instructions)
+
+(comment
+  
+  ,)
 

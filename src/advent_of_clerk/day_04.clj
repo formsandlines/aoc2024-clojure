@@ -357,21 +357,56 @@ c--  c--  -d-  -d-  --e  --e
 ;; ---
 ;; ## Part 2
 
-(def ex2
-  nil)
+(def ex2 ex1)
+(def parse-input-2 parse-input-1)
 
-(defn parse-input-2
-  [input]
-  (str/split-lines input))
+(defn count-X-MAS
+  [lines]
+  (for [[y hz-line] (map-indexed vector lines)
+        [x c]       (map-indexed vector hz-line)]
+    (when (= c \A)
+      (let [c↖ (get-in lines [(- y 1) (- x 1)])
+            c↘ (get-in lines [(+ y 1) (+ x 1)])
+            c↗ (get-in lines [(- y 1) (+ x 1)])
+            c↙ (get-in lines [(+ y 1) (- x 1)])]
+        (when (and (or (and (= \M c↖) (= \S c↘))
+                       (and (= \S c↖) (= \M c↘)))
+                   (or (and (= \M c↗) (= \S c↙))
+                       (and (= \S c↗) (= \M c↙))))
+          1)))))
 
 (defn solve-2
   [input]
-  nil)
+  (->> (parse-input-2 input)
+       count-X-MAS
+       (remove nil?)
+       count))
 
-(solve-2 ex1)
-(solve-2 input)
+(= (solve-2 ex1) 9)
+(= (solve-2 input) 1796)
 
 ;; ### Experiments
+
+;; This time I use a simpler, more specific approach, doing just a lookup around a center coordinate without building strings in all directions and taking substrings:
+
+(def ex-lines (str/split-lines ex2))
+
+(def X-MAS-count
+  (let [lines ex-lines]
+    (for [[y hz-line] (map-indexed vector lines)
+          [x c]       (map-indexed vector hz-line)]
+      (when (= c \A)
+        (let [c↖ (get-in lines [(- y 1) (- x 1)])
+              c↘ (get-in lines [(+ y 1) (+ x 1)])
+              c↗ (get-in lines [(- y 1) (+ x 1)])
+              c↙ (get-in lines [(+ y 1) (- x 1)])]
+          (when (and (or (and (= \M c↖) (= \S c↘))
+                         (and (= \S c↖) (= \M c↘)))
+                     (or (and (= \M c↗) (= \S c↙))
+                         (and (= \S c↗) (= \M c↙))))
+            1))))))
+
+(count (remove nil? X-MAS-count))
 
 ;; ### Observations
 
